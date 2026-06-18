@@ -1,0 +1,6 @@
+{
+	"limite" : 5,
+	"reqAnio" : false,
+	"reqPais" :  false,
+	"direccionDatos" :"datos/DATOS.json"
+}
