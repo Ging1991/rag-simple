@@ -5,17 +5,15 @@ from rag.fases.aumentacion import aumentar
 
 def preguntar(pregunta: str, configuracion: Configuracion) -> str:
 
-	print("\n[Paso 1/3] Fase de recuperación...")
+	print("[SISTEMA] Iniciando RAG Clásico.")
+
 	contexto_recuperado = obtener_contexto(pregunta, configuracion)
+	print("[Paso 1/3] Fase de recuperación...OK")
 
-	print("\n[Paso 2/3] Fase de aumentacion...")
 	prompt = aumentar(pregunta, contexto_recuperado)
+	print("[Paso 2/3] Fase de aumentación...OK")
 
-	print("--- Prompt Generado (Inyectado) ---")
-	print(prompt)
-	print("-----------------------------------")
-
-	print("\n[Paso 3/3] Fase de generacion...")
 	respuesta = generar(prompt, modelo="Delfin")
+	print("[Paso 3/3] Fase de generación...OK")
 		
 	return respuesta

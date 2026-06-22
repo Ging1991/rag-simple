@@ -3,11 +3,6 @@ from persistencia.lector import leer_datos
 from persistencia.configuracion import Configuracion
 
 def limpiar_texto(texto: str) -> str:
-	"""
-	- Cambia las letras acentuadas por su equivalente sin tilde.
-	- Deja solo palabras separadas por espacios
-	"""
-
 	remplazo_tildes = {
 		"Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U",
 		"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u"
@@ -24,33 +19,24 @@ def limpiar_texto(texto: str) -> str:
 	return texto_limpio
 
 def extraer_anios(texto: str) -> list:
-	""" Extrae de forma explícita los años de 4 dígitos presentes en un texto """
-	anios_encontrados = []
+	anios = set()
 	for palabra in texto.split():
 		if palabra.isdigit() and len(palabra) == 4:
-			if palabra not in anios_encontrados:
-				anios_encontrados.append(palabra)
+			anios.add(palabra)
 					
-	return anios_encontrados
+	return list(anios)
 
 def extraer_paises(texto: str) -> list:
-	""" Extrae palabras candidatas a países (Min 4 caracteres, solo letras, sin tildes ni eñes)	"""
-
-	paises_candidatos = []
+	paises_unicos = set()
 	for palabra in texto.split():
 		palabra_mayus = palabra.upper()
-		
 		if len(palabra_mayus) >= 4 and palabra_mayus.isalpha():
-			if palabra_mayus not in paises_candidatos:
-				paises_candidatos.append(palabra_mayus)
-					
-	return paises_candidatos
+			paises_unicos.add(palabra_mayus)
+	return list(paises_unicos)
 
 def obtener_contexto(pregunta: str, configuracion: Configuracion) -> list[Evento]:
 	
 	eventos = leer_datos(configuracion.direccionDatos)
-	print(f"[RECUPERACION] Eventos: {len(eventos)}")
-
 	pregunta = limpiar_texto(pregunta)
 	anios = extraer_anios(pregunta)
 	paises = extraer_paises(pregunta)
@@ -66,8 +52,9 @@ def obtener_contexto(pregunta: str, configuracion: Configuracion) -> list[Evento
 
 		if evento.fecha in anios or evento.pais in paises:
 			contexto.append(evento)
-			
-	resultados_finales = contexto[:configuracion.limite]
 		
-	print(f"[RECUPERACION] Encontrados: {len(contexto)} | Devueltos (Límite {configuracion.limite}): {len(resultados_finales)}")
-	return resultados_finales
+		if len(contexto) >= configuracion.limite:
+			break
+			
+	print(f"[RECUPERACION] Contexto: [{len(contexto)}] eventos recuperados.")
+	return contexto

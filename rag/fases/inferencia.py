@@ -12,7 +12,6 @@ def generar(prompt: list, modelo: str) -> str:
 			}
 		)
 		
-		# En chat, la respuesta se extrae navegando el objeto devuelto
 		return respuesta['message']['content'].strip()
 		
 	except Exception as e:

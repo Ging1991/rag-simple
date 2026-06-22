@@ -17,20 +17,21 @@ def iniciar_chat_clasico(configuracion: Configuracion):
 		pregunta_usuario = input("Tú: ").strip()
 
 		if pregunta_usuario == "1":
-			print("\n[Chat] Saliendo del modo clásico. ¡Hasta luego!")
+			print("[SISTEMA] Saliendo del modo clásico. ¡Hasta luego!")
 			print("=======================================================\n")
 			break
 
 		if not pregunta_usuario:
-			print("[Sistema] La pregunta no puede estar vacía. Intenta de nuevo.\n")
+			print("[SISTEMA] La pregunta no puede estar vacía. Intenta de nuevo.\n")
 			continue
 
 		try:
-			print("\n[Sistema] Procesando consulta en el RAG Clásico...")
+			print("[SISTEMA] Procesando consulta en el RAG Clásico.")
 			respuesta_ia = preguntar(pregunta_usuario, configuracion)
-			print(f"\nDelfín (RAG Clásico): {respuesta_ia}")
+			print(f"[PREGUNTA USUARIO]: {pregunta_usuario}")
+			print(f"[RESPUESTA DELFIN]: {respuesta_ia}")
 			print("\n-------------------------------------------------------")
 			
 		except Exception as e:
-			print(f"\n[Chat] Ocurrió un error inesperado durante la consulta: {e}")
+			print(f"\n[SISTEMA] Ocurrió un error inesperado durante la consulta: {e}")
 			print("-------------------------------------------------------")

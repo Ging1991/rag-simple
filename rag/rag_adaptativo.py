@@ -8,10 +8,14 @@ from persistencia.configuracion import Configuracion
 
 def preguntar(pregunta: str, configuracion: Configuracion) -> str:
 
+	print("\nIniciando RAG Adaptativo.")
+
 	flagReqAnio = (adaptar_anios(pregunta, 'Delfin') == "SI")
 	print("\n[PRE PROCESAMIENTO] Requiere año: {}".format(flagReqAnio))
+
 	flagReqPais = (adaptar_paises(pregunta, 'Delfin') == "SI")
 	print("[PRE PROCESAMIENTO] Requiere país: {}".format(flagReqPais))
+	
 	limite = adaptar_limite(pregunta, 'Delfin')
 	print("[PRE PROCESAMIENTO] Tipo de pregunta: {}".format(limite))
 	if (limite == 'LARGA'):
@@ -23,17 +27,13 @@ def preguntar(pregunta: str, configuracion: Configuracion) -> str:
 	configuracion.reqPais = flagReqPais
 	configuracion.limite = limite
 
-	print("\n[Paso 1/3] Fase de recuperación...")
 	contexto_recuperado = obtener_contexto(pregunta, configuracion)
+	print("[Paso 1/3] Fase de recuperación...OK")
 
-	print("\n[Paso 2/3] Fase de aumentacion...")
 	prompt = aumentar(pregunta, contexto_recuperado)
+	print("[Paso 2/3] Fase de aumentación...OK")
 
-	print("--- Prompt Generado (Inyectado) ---")
-	print(prompt)
-	print("-----------------------------------")
-
-	print("\n[Paso 3/3] Fase de generacion...")
 	respuesta = generar(prompt, modelo="Delfin")
-		
+	print("[Paso 3/3] Fase de generación...OK")
+
 	return respuesta

@@ -15,6 +15,7 @@ def adaptar_anios(pregunta: str, modelo: str) -> str:
         "- Responde ÚNICAMENTE con la palabra 'SI' o la palabra 'NO'.\n"
         "- Está terminantemente prohibido agregar puntuación, explicaciones o justificaciones.\n"
         "- Si la pregunta NO menciona ningún año, responde 'NO'.\n"
+        "- Si la pregunta menciona un rango de años, responde 'NO'.\n"
         "- Si la pregunta menciona MÁS DE UN año, responde 'NO'.\n\n"
         
         "EJEMPLOS DE COMPORTAMIENTO:\n"

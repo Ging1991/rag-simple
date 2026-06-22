@@ -18,20 +18,21 @@ def iniciar_chat_adaptativo(configuracion: Configuracion):
 		pregunta_usuario = input("Tú: ").strip()
 
 		if pregunta_usuario == "1":
-			print("\n[Chat] Saliendo del modo adaptativo. ¡Hasta luego!")
+			print("[SISTEMA] Saliendo del modo adaptativo. ¡Hasta luego!")
 			print("=======================================================\n")
 			break
 
 		if not pregunta_usuario:
-			print("[Sistema] La pregunta no puede estar vacía. Intenta de nuevo.\n")
+			print("[SISTEMA] La pregunta no puede estar vacía. Intenta de nuevo.\n")
 			continue
 
 		try:
-			print("\n[Sistema] Procesando consulta en el RAG Adaptativo...")
+			print("[SISTEMA] Procesando consulta en el RAG Adaptativo.")
 			respuesta_ia = preguntar(pregunta_usuario, configuracion)
-			print(f"\nDelfín (RAG Adaptativo): {respuesta_ia}")
+			print(f"[PREGUNTA USUARIO]: {pregunta_usuario}")
+			print(f"[RESPUESTA DELFIN]: {respuesta_ia}")
 			print("\n-------------------------------------------------------")
 			
 		except Exception as e:
-			print(f"\n[Chat] Ocurrió un error inesperado durante la consulta: {e}")
+			print(f"\n[SISTEMA] Ocurrió un error inesperado durante la consulta: {e}")
 			print("-------------------------------------------------------")
