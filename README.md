@@ -50,7 +50,7 @@ El sistema opera de forma local y exclusiva sobre una base de conocimiento estru
 
 ### Requisitos de Software
 
-1.  **Python 3.x**
+1.  **Python 3.10 o superior**
     
 2.  **Ollama:** El sistema requiere que el servicio de Ollama esté instalado y ejecutándose localmente (`localhost`).
     
